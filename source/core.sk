@@ -21,7 +21,6 @@ command /proton [<text>]:
 			send "&7/setspawn &8❘&f sets server spawn to sender's location"
 			send "&7/spawn (player) &8❘&f teleports player to spawn location"
 			send "&7/vanish (player) &8❘&f vanishes player"
-			send "&7/reappear (player) &8❘&f reappears player"
 			stop
 		else:
 			send "&c&oArgument not found."
@@ -105,4 +104,122 @@ command /fly [<player>]:
 				set player-arg's fly mode to true
 				send "{@p} Flight mode {@h}enabled{@t}." to player-arg
 				send "{@p} {@h}%player-arg%{@t}'s flight mode was {@h}enabled{@t}." to sender
+				stop
+command /tp [<player>] [<player>]:
+	permission: proton.tp
+	description: Teleports to player
+	trigger:
+		if arg 1 is not set:
+			send "&cUsage: /tp [player] (player)"
+			stop
+		else if arg 1 is set:
+			if arg 1 is not set:
+				teleport sender to arg-1
+				send "{@p} Teleported to {@h}%arg-1%{@t}." to sender
+				stop
+			else:
+				teleport arg-1 to arg-2
+				send "{@p} Teleported {@h}%arg-1%{@t} to {@h}%arg-2%{@h}." to sender
+				stop
+command /tpcoords [<integer>] [<integer>] [<integer>]:
+	permission: proton.tpcoords
+	aliases: /tppos
+	trigger:
+		if arg 1 is not set:
+			send "&cUsage: /tpcoords [x] [y] [z]"
+			stop
+		else if arg 1 is set:
+			if arg 2 is set:
+				if arg 3 is set:
+					set {_loc} to location(%arg-1%, %arg-2%, %arg-3%)
+					teleport sender to {_loc}
+					send "{@p} Teleported to {@h}%arg-1%, %arg-2%, %arg-3%{@t}."
+					stop
+				else:
+					send "&c&oInvaild Syntax"
+					send "&cUsage: /tpcoords [x] [y] [z]"
+					stop
+			else:
+				send "&c&oInvaild Syntax"
+				send "&cUsage: /tpcoords [x] [y] [z]"
+				stop
+command /sethome:
+	permission: proton.sethome
+	trigger:
+		set {home::%sender's uuid%} to sender's location
+		set {_x} to sender's rounded x-coordinate
+		set {_y} to sender's rounded y-coordinate
+		set {_z} to sender's rounded z-coordinate
+		send "{@p} Home set at {@h}%{_x}%, %{_y}%, %{_z}%{@t}."
+		stop
+command /home:
+	permission: proton.home
+	trigger:
+		if {home::%sender's uuid%} is set:
+			teleport sender to {home::%sender's uuid%}
+			send "{@p} Teleported to your home location."
+			stop
+		else:
+			send "&c&oYou do not have a home set."
+			send "&cUsage: /sethome"
+			stop
+command /setspawn:
+	permission: proton.setspawn
+	trigger:
+		if {spawn} is set:
+			set {spawn} to sender's location
+			set {_x} to sender's rounded x-coordinate
+			set {_y} to sender's rounded y-coordinate
+			set {_z} to sender's rounded z-coordinate
+			send "{@p} Spawn location set to {@h}%{_x}%, %{_y}%, %{_z}%{@t}."
+			stop
+		else:
+			send "&c&oYou do not have a home set."
+			if sender has permission "proton.sethome":
+				send "&cUsage: /sethome"
+			stop
+command /spawn [<player>]:
+	permission: proton.spawn
+	trigger:
+		if {spawn} is set:
+			if arg 1 is set:
+				teleport arg-1 to {spawn}
+				send "{@p} Teleported {@h}%arg-1%{@t} to spawn." to sender
+				send "{@p} Teleported to spawn." to arg-1
+				stop
+			else:
+				teleport sender to {spawn}
+				send "{@p} Teleported to spawn." to sender
+				stop
+		else:
+			send "&c&oSpawn is not set."
+			if sender has permission "proton.setspawn":
+				send "&cUsage: /setspawn"
+			stop
+command /vanish [<player>]:
+	permission: proton.vanish
+	trigger:
+		if arg 1 is not set:
+			if {visibility::%sender%} is true:
+				delete {visibility::%sender%}
+				remove invisibility from the sender
+				send "{@p} You have been reappeared." to sender
+				stop
+			else:
+				set {visibility::%sender%} to true
+				apply invisibility 2 to the sender
+				send "{@p} You have been vanished." to sender
+				stop
+		else if arg 1 is set:
+			if {visibility::%arg-1%} is true:
+				delete {visibility::%arg-1%}
+				remove invisibility from the arg-1
+				send "{@p} You have been reappeared." to arg-1
+				send "{@p} {@h}%arg-1%{@t} has been reappeared." to sender
+				stop
+			else:
+				set {visibility::%arg-1%} to true
+				apply invisibility 2 to the arg-1
+				send "{@p} You have been vanished." to arg-1
+				send "{@p} {@h}%arg-1%{@t} has been vanished." to sender
 				stop

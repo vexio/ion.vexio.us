@@ -5,6 +5,18 @@ proton is a newly created essentials knock-off plugin created by vexio. proton u
 proton is compiled into java from an addon created by xXAndrew28Xx, SkriptPackager [0.0.7 - Alpha]
 check out the official page on skunity. https://forums.skunity.com/t/skript-packager-0-0-7-fixed-gui-skripts-jars-o-windows-mac-linux/8276
 
-# commands
+# commands & permissions
 
-no commands are avaliable yet.
+[] = required | () = optional
+
+```
+/gm [gamemode] (player) | proton.gm
+/fly (player) | proton fly
+/tp [player] (player) | proton.tp
+/tpcoords [x] [y] [z] | proton.tpcoords
+/sethome | proton.sethome
+/home | proton.home
+/setspawn | proton.setspawn
+/spawn (player) | proton.spawn
+/vanish (player) | proton.vanish
+```

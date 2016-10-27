@@ -1,1 +1,108 @@
+options:
+	p: &6 ◉&f
+	t: &f
+	h: &7
 
+command /proton [<text>]:
+	description: Shows all commands in Proton
+	trigger:
+		if arg 1 is not set:
+			send "&cUsage: /proton [help]"
+			stop
+		if arg 1 is "help":
+			send "&6&m---+---&r &eproton &6&m---+---&r"
+			send "&o[] = required &7❘&r&o () = optional"
+			send "&7/gm [num] (player) &8❘&f changes gamemode"
+			send "&7/fly (player) &8❘&f toggles flight"
+			send "&7/tp [player] (player) &8❘&f teleports to a player"
+			send "&7/tpcoords [x] [y] [z] &8❘&f teleports to set coordinates"
+			send "&7/sethome &8❘&f sets a home at sender's location"
+			send "&7/home (player) &8❘&f teleports to player's home"
+			send "&7/setspawn &8❘&f sets server spawn to sender's location"
+			send "&7/spawn (player) &8❘&f teleports player to spawn location"
+			send "&7/vanish (player) &8❘&f vanishes player"
+			send "&7/reappear (player) &8❘&f reappears player"
+			stop
+		else:
+			send "&c&oArgument not found."
+			send "&cUsage: /proton [help]"
+			stop
+command /gm [<text>] [<player>]:
+	permission: proton.gm
+	description: Changes gamemode
+	trigger:
+		if arg 1 is not set:
+			send "&cUsage: /gm [num] (player)"
+			stop
+		else if arg 1 is "creative" or "c" or "1":
+			if arg 2 is not set:
+				set player's gamemode to creative
+				send "{@p} Your gamemode has been updated to {@h}Creative{@t}." to sender
+				stop
+			else:
+				set player-arg's gamemode to creative
+				send "{@p} {@h}%player-arg%{@t}'s gamemode was updated to {@h}Creative{@t}." to sender
+				send "{@p} Your gamemode has been updated to {@h}Creative{@t}." to player-arg
+				stop
+		else if arg 1 is "survival" or "s" or "0":
+			if arg 2 is not set:
+				set player's gamemode to survival
+				send "{@p} Your gamemode has been updated to {@h}Survival{@t}." to sender
+				stop
+			else:
+				set player-arg's gamemode to survival
+				send "{@p} {@h}%player-arg%{@t}'s gamemode was updated to {@h}Survival{@t}." to sender
+				send "{@p} Your gamemode has been updated to {@h}Survival{@t}." to player-arg
+				stop
+		else if arg 1 is "adventure" or "a" or "2":
+			if arg 2 is not set:
+				set player's gamemode to adventure
+				send "{@p} Your gamemode has been updated to {@h}Adventure{@t}." to sender
+				stop
+			else:
+				set player-arg's gamemode to adventure
+				send "{@p} {@h}%player-arg%{@t}'s gamemode was updated to {@h}Adventure{@t}." to sender
+				send "{@p} Your gamemode has been updated to {@h}Adventure{@t}." to player-arg
+				stop
+		else if arg 1 is "spectator" or "sp" or "3" or "spec":
+			if arg 2 is not set:
+				set player's gamemode to spectator
+				send "{@p} Your gamemode has been updated to {@h}Spectator{@t}." to sender
+				stop
+			else:
+				set player-arg's gamemode to spectator
+				send "{@p} {@h}%player-arg%{@t}'s gamemode was updated to {@h}Spectator{@t}." to sender
+				send "{@p} Your gamemode has been updated to {@h}Spectator{@t}." to player-arg
+				stop
+		else:
+			send "&c&oArgument not found."
+			send "&cUsage: /gm [num] (player)"
+			stop
+command /fly [<player>]:
+	permission: proton.fly
+	description: Toggles flight
+	trigger:
+		if arg 1 is not set:
+			if {fly::%sender%} is true:
+				delete {fly::%sender%}
+				set sender's fly mode to false
+				send "{@p} Flight mode {@h}disabled{@t}."
+				stop
+			else:
+				set {fly::%sender%} to true
+				set sender's fly mode to true
+				send "{@p} Flight mode {@h}enabled{@t}."
+				stop
+		else:
+			if {fly::%player-arg%} is true:
+				delete {fly::%player-arg%}
+				set player-arg's fly mode to false
+				send "{@p} Flight mode {@h}disabled{@t}." to player-arg
+				send "{@p} {@h}%player-arg%{@t}'s flight mode was {@h}disabled{@t}." to sender
+				stop
+			else:
+				set {fly::%player-arg%} to true
+				set player-arg's fly mode to true
+				send "{@p} Flight mode {@h}enabled{@t}." to player-arg
+				send "{@p} {@h}%player-arg%{@t}'s flight mode was {@h}enabled{@t}." to sender
+				stop

@@ -1,7 +1,8 @@
 options:
-	p: &6 ◉&f
+	p: &6 ⦿&f
 	t: &f
 	h: &7
+	em: &cInvaild Permissions
 
 command /proton [<text>]:
 	description: Shows all commands in Proton
@@ -15,6 +16,7 @@ command /proton [<text>]:
 			send "&7/gm [num] (player) &8❘&f changes gamemode"
 			send "&7/fly (player) &8❘&f toggles flight"
 			send "&7/tp [player] (player) &8❘&f teleports to a player"
+			send "&7/tphere [player] &8❘&f teleports a player to you"
 			send "&7/tpcoords [x] [y] [z] &8❘&f teleports to set coordinates"
 			send "&7/sethome &8❘&f sets a home at sender's location"
 			send "&7/home (player) &8❘&f teleports to player's home"
@@ -29,6 +31,8 @@ command /proton [<text>]:
 command /gm [<text>] [<player>]:
 	permission: proton.gm
 	description: Changes gamemode
+	permission message: {@em}
+	usage: /gm [gamemode] (player)
 	trigger:
 		if arg 1 is not set:
 			send "&cUsage: /gm [num] (player)"
@@ -80,6 +84,8 @@ command /gm [<text>] [<player>]:
 command /fly [<player>]:
 	permission: proton.fly
 	description: Toggles flight
+	permission message: {@em}
+	usage: /fly (player)
 	trigger:
 		if arg 1 is not set:
 			if {fly::%sender%} is true:
@@ -108,6 +114,8 @@ command /fly [<player>]:
 command /tp [<player>] [<player>]:
 	permission: proton.tp
 	description: Teleports to player
+	permission message: {@em}
+	usage: /tp [player] (player)
 	trigger:
 		if arg 1 is not set:
 			send "&cUsage: /tp [player] (player)"
@@ -116,14 +124,33 @@ command /tp [<player>] [<player>]:
 			if arg 1 is not set:
 				teleport sender to arg-1
 				send "{@p} Teleported to {@h}%arg-1%{@t}." to sender
+				send "{@p} Teleported to {@h}%sender%{@t}." to arg-1
 				stop
 			else:
-				teleport arg-1 to arg-2
-				send "{@p} Teleported {@h}%arg-1%{@t} to {@h}%arg-2%{@h}." to sender
+				teleport sender to arg-1
+				send "{@p} Teleported {@h}%arg-1%{@t}" to sender
+				send "{@p} Teleported to {@h}%sender%{@t}." to arg-1
 				stop
+command /tphere [<player>]:
+	permission: proton.tphere
+	description: Teleports a player to sender
+	permission message: {@em}
+	usage: /tphere [player]
+	aliases: /s
+	trigger:
+		if arg 1 is not set:
+			send "&cUsage: /tphere [player]"
+			stop
+		else if arg 1 is set:
+			teleport arg-1 to sender
+			send "{@p} Teleported {@h}%arg-1%{@t} to you." to sender
+			send "{@p} Teleported to {@h}%sender%{@t}." to arg-1
+			stop
 command /tpcoords [<integer>] [<integer>] [<integer>]:
 	permission: proton.tpcoords
 	aliases: /tppos
+	permission message: {@em}
+	usage: /tpcoords [x] [y] [z]
 	trigger:
 		if arg 1 is not set:
 			send "&cUsage: /tpcoords [x] [y] [z]"
@@ -131,7 +158,8 @@ command /tpcoords [<integer>] [<integer>] [<integer>]:
 		else if arg 1 is set:
 			if arg 2 is set:
 				if arg 3 is set:
-					set {_loc} to location(%arg-1%, %arg-2%, %arg-3%)
+					set {_world} to sender's world
+					set {_loc} to location(arg-1, arg-2, arg-3, {_world})
 					teleport sender to {_loc}
 					send "{@p} Teleported to {@h}%arg-1%, %arg-2%, %arg-3%{@t}."
 					stop
@@ -145,15 +173,19 @@ command /tpcoords [<integer>] [<integer>] [<integer>]:
 				stop
 command /sethome:
 	permission: proton.sethome
+	permission message: {@em}
+	usage: /sethome
 	trigger:
 		set {home::%sender's uuid%} to sender's location
-		set {_x} to sender's rounded x-coordinate
-		set {_y} to sender's rounded y-coordinate
-		set {_z} to sender's rounded z-coordinate
+		set {_x} to sender's x-coordinate
+		set {_y} to sender's y-coordinate
+		set {_z} to sender's z-coordinate
 		send "{@p} Home set at {@h}%{_x}%, %{_y}%, %{_z}%{@t}."
 		stop
 command /home:
 	permission: proton.home
+	permission message: {@em}
+	usage: /home
 	trigger:
 		if {home::%sender's uuid%} is set:
 			teleport sender to {home::%sender's uuid%}
@@ -165,12 +197,14 @@ command /home:
 			stop
 command /setspawn:
 	permission: proton.setspawn
+	permission message: {@em}
+	usage: /setspawn
 	trigger:
 		if {spawn} is set:
 			set {spawn} to sender's location
-			set {_x} to sender's rounded x-coordinate
-			set {_y} to sender's rounded y-coordinate
-			set {_z} to sender's rounded z-coordinate
+			set {_x} to sender's x-coordinate
+			set {_y} to sender's y-coordinate
+			set {_z} to sender's z-coordinate
 			send "{@p} Spawn location set to {@h}%{_x}%, %{_y}%, %{_z}%{@t}."
 			stop
 		else:
@@ -180,6 +214,8 @@ command /setspawn:
 			stop
 command /spawn [<player>]:
 	permission: proton.spawn
+	permission message: {@em}
+	usage: /spawn (player)
 	trigger:
 		if {spawn} is set:
 			if arg 1 is set:
@@ -198,28 +234,35 @@ command /spawn [<player>]:
 			stop
 command /vanish [<player>]:
 	permission: proton.vanish
+	permission message: {@em}
+	usage: /vanish (player)
 	trigger:
 		if arg 1 is not set:
-			if {visibility::%sender%} is true:
-				delete {visibility::%sender%}
-				remove invisibility from the sender
-				send "{@p} You have been reappeared." to sender
+			if {visibility::%player%} is true:
+				delete {visibility::%player%}
+				remove invisibility from player
+				send "{@p} You have been reappeared." to player
 				stop
 			else:
-				set {visibility::%sender%} to true
-				apply invisibility 2 to the sender
-				send "{@p} You have been vanished." to sender
+				set {visibility::%player%} to true
+				apply invisibility 2 to the player for 9999 days
+				send "{@p} You have been vanished." to player
 				stop
 		else if arg 1 is set:
 			if {visibility::%arg-1%} is true:
 				delete {visibility::%arg-1%}
-				remove invisibility from the arg-1
+				remove invisibility from arg-1
 				send "{@p} You have been reappeared." to arg-1
 				send "{@p} {@h}%arg-1%{@t} has been reappeared." to sender
 				stop
 			else:
 				set {visibility::%arg-1%} to true
-				apply invisibility 2 to the arg-1
+				apply invisibility 2 to the arg-1 for 9999 days
 				send "{@p} You have been vanished." to arg-1
 				send "{@p} {@h}%arg-1%{@t} has been vanished." to sender
 				stop
+on join:
+	delete {visibility::%event-player%}
+	delete {fly::%event-player%}
+	remove invisibility from the event-player
+	stop

@@ -3,7 +3,7 @@ options:
 	t: &f
 	h: &7
 	em: &cInvaild Permissions
-
+	fileLoc: proton.sk
 command /proton [<text>]:
 	description: Shows all commands in Proton
 	trigger:
@@ -11,19 +11,30 @@ command /proton [<text>]:
 			send "&cUsage: /proton [help]"
 			stop
 		if arg 1 is "help":
-			send "&6&m---+---&r &eproton &6&m---+---&r"
+			send "&6&m---+---&r &eProton &6&m---+---&r"
 			send "&o[] = required &7❘&r&o () = optional"
-			send "&7/gm [num] (player) &8❘&f changes gamemode"
-			send "&7/fly (player) &8❘&f toggles flight"
-			send "&7/tp [player] (player) &8❘&f teleports to a player"
-			send "&7/tphere [player] &8❘&f teleports a player to you"
-			send "&7/tpcoords [x] [y] [z] &8❘&f teleports to set coordinates"
-			send "&7/sethome &8❘&f sets a home at sender's location"
-			send "&7/home (player) &8❘&f teleports to player's home"
-			send "&7/setspawn &8❘&f sets server spawn to sender's location"
-			send "&7/spawn (player) &8❘&f teleports player to spawn location"
-			send "&7/vanish (player) &8❘&f vanishes player"
+			send "&7/gm [num] (player) &8❘&f Changes Gamemode"
+			send "&7/fly (player) &8❘&f Toggles flight"
+			send "&7/tp [player] (player) &8❘&f Teleports to a player"
+			send "&7/tphere [player] &8❘&f Teleports a player to you"
+			send "&7/tpcoords [x] [y] [z] &8❘&f Teleports to set coordinates"
+			send "&7/sethome &8❘&f Sets a home at sender's location"
+			send "&7/home (player) &8❘&f Teleports to player's home"
+			send "&7/setspawn &8❘&f Sets server spawn to sender's location"
+			send "&7/spawn (player) &8❘&f Teleports player to spawn location"
+			send "&7/vanish (player) &8❘&f Vanishes player"
 			stop
+		if arg 1 is "reload" or "rl":
+			if sender has permission "proton.reload":
+				send "{@p} Reloading {@h}Proton{@t}..."
+				wait 1 second
+				if sender is op:
+					player command "/sk reload {@fileLoc}"
+				else:
+					console command "/sk reload {@fileLoc}"
+					wait 3 seconds
+					send "{@p} Successfully reloaded {@h}Proton{@t}."
+				stop
 		else:
 			send "&c&oArgument not found."
 			send "&cUsage: /proton [help]"
@@ -121,13 +132,12 @@ command /tp [<player>] [<player>]:
 			send "&cUsage: /tp [player] (player)"
 			stop
 		else if arg 1 is set:
-			if arg 1 is not set:
+			if arg 2 is not set:
 				teleport sender to arg-1
 				send "{@p} Teleported to {@h}%arg-1%{@t}." to sender
-				send "{@p} Teleported to {@h}%sender%{@t}." to arg-1
 				stop
 			else:
-				teleport sender to arg-1
+				teleport arg-1 to arg-2
 				send "{@p} Teleported {@h}%arg-1%{@t}" to sender
 				send "{@p} Teleported to {@h}%sender%{@t}." to arg-1
 				stop

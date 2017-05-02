@@ -495,7 +495,7 @@ command /home:
         <!-- SETSPAWN -->
         <div id="setspawn" class="card grey lighten-4">
             <div class="card-content">
-              <span class="card-title"><b>Setspawn</b> <a class="material-icons right tooltipped" data-position="bottom" data-delay="250" data-tooltip="Click to goto quicklink" href="http://ion.vexio.us/docs/#home">link</a></span>
+              <span class="card-title"><b>Setspawn</b> <a class="material-icons right tooltipped" data-position="bottom" data-delay="250" data-tooltip="Click to goto quicklink" href="http://ion.vexio.us/docs/#setspawn">link</a></span>
               <p><b>Description</b>: Sets the server's spawn location to the sender's location</p>
               <p><b>Permission</b>: <font color="#49b6ff">proton.setspawn</font></p>
             </div>
@@ -527,6 +527,58 @@ command /setspawn:
     set {_y} to sender's y-coordinate
     set {_z} to sender's z-coordinate
     send "{@p} Spawn location set to {@h}%{_x}%, %{_y}%, %{_z}%{@t}."
+                </pre>
+              </div>
+            </div>
+          </div>
+        <!-- SETSPAWN -->
+        <div id="spawn" class="card grey lighten-4">
+            <div class="card-content">
+              <span class="card-title"><b>Spawn</b> <a class="material-icons right tooltipped" data-position="bottom" data-delay="250" data-tooltip="Click to goto quicklink" href="http://ion.vexio.us/docs/#spawn">link</a></span>
+              <p><b>Description</b>: Teleports the sender or player to the set spawn</p>
+              <p><b>Permission</b>: <font color="#49b6ff">proton.spawn, proton.spawn.other</font></p>
+            </div>
+            <div class="card-tabs grey lighten-4">
+              <ul class="tabs tabs-fixed-width grey lighten-3">
+                <li class="tab"><a class="active green-text darken-1" href="#usage-setspawn">Usage</a></li>
+                <li class="tab"><a class="green-text darken-1" href="#example-setspawn">Example</a></li>
+                <li class="tab"><a class="green-text darken-1" href="#code-setspawn">Code</a></li>
+                <div class="indicator green darken-1" style="right: 661px; left: 0px;"></div>
+              </ul>
+            </div>
+            <div class="card-content grey lighten-5">
+              <div id="usage-setspawn">
+                <p><b>Usage</b>: <code class="language-markup">/spawn (player)</code>
+                <p><b>Aliases</b>: None
+              </div>
+              <div id="example-setspawn">
+                <p><b>Example 1</b>: /spawn <i>- Teleports the sender to the spawn location</i></p>
+								<p><b>Example 2</b>: /spawn vxo <i>- Teleports vxo to the spawn location</i></p>
+              </div>
+              <div id="code-setspawn">
+    <pre class="language-markup">
+command /spawn [&lt;player="%player%"&gt;]:
+  permission: proton.spawn
+  permission message: {@em} [proton.setwarp]
+  usage: /spawn (player)
+  trigger:
+    if {proton.spawn} is set:
+      if {proton.teleporting::%arg-1%} is true:
+        send "{@a} &c&oPlayer is already being teleported"
+        stop
+      else:
+        set {proton.teleporting::%arg-1%} to true
+        set {proton.lastLoc::%arg-1%} to arg-1's location
+        teleport arg-1 to {proton.spawn}
+        if arg 1 isn't sender:
+          send "{@p} Teleported {@h}%arg-1%{@t} to spawn." to sender
+        send "{@p} Teleported to spawn." to arg-1
+        wait 1 second
+        delete {proton.teleporting::%arg-1%}
+    else:
+      send "{@a} Spawn is not set."
+      if sender has permission "proton.setspawn":
+        send "&cUsage: /setspawn"
                 </pre>
               </div>
             </div>
@@ -570,7 +622,7 @@ command /setspawn:
   <script src="../js/prism.js"></script>
   <script src="../js/clipboard.js"></script>
   <script src="../js/clipboard.min.js"></script>
-	<script>
+  <script>
     var btn = document.getElementById('clipbtn');
     var clipboard = new Clipboard(btn);
     clipboard.on('success', function(e) {

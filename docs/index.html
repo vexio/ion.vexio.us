@@ -94,7 +94,7 @@
                 <p><b>Example 3</b>: /gma <i>- Changes the sender's gamemode to adventure</i></p>
               </div>
               <div id="code-gamemode">
-                <pre class="language-markup">
+                <pre id="rawcode-gamemode" class="language-markup">
 command /gamemode [&lt;text&gt;] [&lt;text="%player%"&gt;]:
   permission: proton.gamemode
   description: Changes gamemode
@@ -133,7 +133,7 @@ command /gamemode [&lt;text&gt;] [&lt;text="%player%"&gt;]:
       send "{@a} Player is not online."
       send "&cUsage: /gamemode %arg-1% &m%arg-2%"
                 </pre>
-                <p><a href="http://bryce.hoffho.us/pastes/ion/gamemode.txt"class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">content_copy</i></a></p>
+                <p><a class="waves-effect waves-light btn clipbtn" data-clipboard-target="#rawcode-gamemode">Copy to Clipboard</a>content_copy</p>
               </div>
             </div>
           </div>
@@ -578,6 +578,16 @@ command /setspawn:
   <script src="../js/prism.js"></script>
   <script src="../js/clipboard.js"></script>
   <script src="../js/clipboard.min.js"></script>
+	<script>
+    var btn = document.getElementById('clipbtn');
+    var clipboard = new Clipboard(btn);
+    clipboard.on('success', function(e) {
+        console.log(e);
+    });
+    clipboard.on('error', function(e) {
+        console.log(e);
+    });
+    </script>
   
   </body>
 </html>

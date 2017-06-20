@@ -4,23 +4,12 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
   <link rel="icon" href="http://bryce.hoffho.us/i/team-ion-small-nobackground.png">
-  <title>The Ion Project | Docs</title>
+  <title>Ion Project | Docs</title>
 
   <!-- CSS  -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
-  <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
-  <link href="../css/prism.css" rel="stylesheet" />
-  <!-- QUICKLINKS >
-  <input id="gamemode-quicklink" value="http://ion.vexio.us/docs/#gamemode" />
-  <input id="fly-quicklink" value="http://ion.vexio.us/docs/#fly" />
-  <input id="teleport-quicklink" value="http://ion.vexio.us/docs/#teleport" />
-  <input id="teleport-here-quicklink" value="http://ion.vexio.us/docs/#teleport-here" />
-  <input id="teleport-all-quicklink" value="http://ion.vexio.us/docs/#teleport-all" />
-  <input id="teleport-coords-quicklink" value="http://ion.vexio.us/docs/#teleport-coords" />
-  <input id="sethome-quicklink" value="http://ion.vexio.us/docs/#sethome" />
-  <input id="home-quicklink" value="http://ion.vexio.us/docs/#home" />
-  <input id="setspawn-quicklink" value="http://ion.vexio.us/docs/#setspawn" /-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
   <nav class="orange lighten-1" role="navigation">
@@ -42,21 +31,10 @@
   <div class="section no-pad-bot" id="index-banner">
     <div class="container">
       <br><br>
-      <h1 class="header center orange-text darken-1"><font family="Product Sans-Regular">Documentation</font></h1>
+      <h1 class="header center orange-text darken-1"><font family="Product Sans-Regular">Downloads</font></h1>
       <div class="row center">
-        <h5 class="header col s12 light">Documentation for the Ion Project</h5>
+        <h5 class="header col s12 light">Download the latest versions of the Ion Project</h5>
       </div>
-      <nav>
-        <div class="nav-wrapper">
-          <form action="http://ion.vexio.usdocs">
-            <div class="input-field grey lighten-4">
-              <input id="search" name="search" type="search" required placeholder="Search for... [Not working currently]">
-              <label class="label-icon" for="search"><i class="material-icons"><font color="#000">search</font></i></label>
-              <i class="material-icons">close</i>
-            </div>
-          </form>
-        </div>
-      </nav>
       <br><br>
 
     </div>
@@ -66,526 +44,40 @@
   <div class="container">
     <div class="section">
 
-      <!--   DOCS START HERE   -->
-      <div class="row">
-          <!-- GAMEMODE -->
-          <div id="gamemode" class="card grey lighten-4">
-            <div class="card-content">
-              <span class="card-title"><b>Gamemode</b> <a class="material-icons right tooltipped" data-position="bottom" data-delay="250" data-tooltip="Click to goto quicklink" href="http://ion.vexio.us/docs/#gamemode">link</a></span>
-              <p><b>Description</b>: Change a players gamemode to <i>Survival, Creative, Adventure, or Spectator</i></p>
-              <p><b>Permission</b>: <font color="#49b6ff">proton.gamemode, proton.gamemode.other</font></p>
-            </div>
-            <div class="card-tabs grey lighten-4">
-              <ul class="tabs tabs-fixed-width grey lighten-3">
-                <li class="tab"><a class="active green-text darken-1" href="#usage-gamemode">Usage</a></li>
-                <li class="tab"><a class="green-text darken-1" href="#example-gamemode">Example</a></li>
-                <li class="tab"><a class="green-text darken-1" href="#code-gamemode">Code</a></li>
-                <div class="indicator green darken-1" style="right: 661px; left: 0px;"></div>
-              </ul>
-            </div>
-            <div class="card-content grey lighten-5">
-              <div id="usage-gamemode">
-                <p><b>Usage</b>: <code class="language-markup">/gamemode [creative|survival|adventure|spectator] (player)</code>
-                <p><b>Aliases</b>: /gm
-              </div>
-              <div id="example-gamemode">
-                <p><b>Example 1</b>: /gamemode creative vexio <i>- Changes Vexio's gamemode to creative</i></p>
-                <p><b>Example 2</b>: /gm s vexio <i>- Changes Vexio's gamemode to survival</i></p>
-                <p><b>Example 3</b>: /gma <i>- Changes the sender's gamemode to adventure</i></p>
-              </div>
-              <div id="code-gamemode">
-                <pre id="rawcode-gamemode" class="language-markup">
-command /gamemode [&lt;text&gt;] [&lt;text="%player%"&gt;]:
-  permission: proton.gamemode
-  description: Changes gamemode
-  permission message: {@em} [proton.gamemode]
-  usage: /gamemode [gamemode] (player)
-  aliases: /gm
-  trigger:
-    set {_p} to arg-2 parsed as player
-    if {_p} is online:
-      if arg 1 is not set:
-        send "&cUsage: /gamemode [num] (player)"
-      else if arg 1 is "creative" or "c" or "1":
-        set {_p}'s gamemode to creative
-        send "{@p} Your gamemode has been updated to {@h}Creative{@t}." to {_p}
-        if {_p} isn't sender:
-          send "{@p} {@h}%{_p}%{@t}'s gamemode was updated to {@h}Creative{@t}." to sender
-      else if arg 1 is "survival" or "s" or "0":
-        set {_p}'s gamemode to survival
-        send "{@p} Your gamemode has been updated to {@h}Survival{@t}." to {_p}
-        if {_p} isn't sender:
-          send "{@p} {@h}%{_p}%{@t}'s gamemode was updated to {@h}Survival{@t}." to sender
-      else if arg 1 is "adventure" or "a" or "2":
-        set {_p}'s gamemode to adventure
-        send "{@p} Your gamemode has been updated to {@h}Adventure{@t}." to {_p}
-        if {_p} isn't sender:
-          send "{@p} {@h}%{_p}%{@t}'s gamemode was updated to {@h}Adventure{@t}." to sender
-      else if arg 1 is "spectator" or "sp" or "3" or "spec":
-        set {_p}'s gamemode to spectator
-        send "{@p} Your gamemode has been updated to {@h}Spectator{@t}." to {_p}
-        if {_p} isn't sender:
-          send "{@p} {@h}%{_p}%{@t}'s gamemode was updated to {@h}Spectator{@t}." to sender
-      else:
-        send "{@a} Invalid Argument."
-        send "&cUsage: /gamemode &m%arg-1%&c (player)"
-    else:
-      send "{@a} Player is not online."
-      send "&cUsage: /gamemode %arg-1% &m%arg-2%"
-                </pre>
-              </div>
-            </div>
-          </div>
-        <!-- FLY -->
-        <div id="fly" class="card grey lighten-4">
-            <div class="card-content">
-              <span class="card-title"><b>Fly</b> <a class="material-icons right tooltipped" data-position="bottom" data-delay="250" data-tooltip="Click to goto quicklink" href="http://ion.vexio.us/docs/#fly">link</a></span>
-              <p><b>Description</b>: Toggles the player's flight mode</p>
-              <p><b>Permission</b>: <font color="#49b6ff">proton.fly, proton.fly.other</font></p>
-            </div>
-            <div class="card-tabs grey lighten-4">
-              <ul class="tabs tabs-fixed-width grey lighten-3">
-                <li class="tab"><a class="active green-text darken-1" href="#usage-fly">Usage</a></li>
-                <li class="tab"><a class="green-text darken-1" href="#example-fly">Example</a></li>
-                <li class="tab"><a class="green-text darken-1" href="#code-fly">Code</a></li>
-                <div class="indicator green darken-1" style="right: 661px; left: 0px;"></div>
-              </ul>
-            </div>
-            <div class="card-content grey lighten-5">
-              <div id="usage-fly">
-                <p><b>Usage</b>: <code class="language-markup">/fly (player)</code>
-                <p><b>Aliases</b>: None
-              </div>
-              <div id="example-fly">
-                <p><b>Example 1</b>: /fly vexio <i>- Toggles flight mode for Vexio</i></p>
-                <p><b>Example 2</b>: /fly <i>- Toggles flight mode for the sender</i></p>
-              </div>
-              <div id="code-fly">
-                <pre class="language-markup">
-command /fly [&lt;text="%player%"&gt;]:
-  permission: proton.fly
-  description: Toggles flight
-  permission message: {@em} [proton.fly]
-  usage: /fly (player)
-  trigger:
-    set {_p} to arg-1 parsed as player
-    if {_p} is online:
-      if {proton.fly::%{_p}%} is true:
-        delete {proton.fly::%{_p}%}
-        set {_p}'s fly mode to false
-        send "{@p} Flight mode {@h}disabled{@t}." to {_p}
-        if arg 1 isn't sender:
-          send "{@p} {@h}%{_p}%{@t}'s flight mode was {@h}disabled{@t}." to sender
-      else:
-        set {proton.fly::%{_p}%} to true
-        set {_p}'s fly mode to true
-        send "{@p} Flight mode {@h}enabled{@t}." to {_p}
-        if arg 1 isn't sender:
-          send "{@p} {@h}%{_p}%{@t}'s flight mode was {@h}enabled{@t}." to sender
-    else:
-      send "{@a} Player is not online."
-      send "&cUsage: /fly &m%arg-1%"
-                </pre>
-              </div>
-            </div>
-          </div>
-        <!-- TELEPORT -->
-        <div id="teleport" class="card grey lighten-4">
-            <div class="card-content">
-              <span class="card-title"><b>Teleport</b> <a class="material-icons right tooltipped" data-position="bottom" data-delay="250" data-tooltip="Click to goto quicklink" href="http://ion.vexio.us/docs/#teleport">link</a></span>
-              <p><b>Description</b>: Teleports a player to another player</p>
-              <p><b>Permission</b>: <font color="#49b6ff">proton.tp</font></p>
-            </div>
-            <div class="card-tabs grey lighten-4">
-              <ul class="tabs tabs-fixed-width grey lighten-3">
-                <li class="tab"><a class="active green-text darken-1" href="#usage-teleport">Usage</a></li>
-                <li class="tab"><a class="green-text darken-1" href="#example-teleport">Example</a></li>
-                <li class="tab"><a class="green-text darken-1" href="#code-teleport">Code</a></li>
-                <div class="indicator green darken-1" style="right: 661px; left: 0px;"></div>
-              </ul>
-            </div>
-            <div class="card-content grey lighten-5">
-              <div id="usage-teleport">
-                <p><b>Usage</b>: <code class="language-markup">/tp [player] (player)</code>
-                <p><b>Aliases</b>: None
-              </div>
-              <div id="example-teleport">
-                <p><b>Example 1</b>: /tp vexio vxo <i>- Teleports Vexio to vxo</i></p>
-                <p><b>Example 2</b>: /tp vxo <i>- Teleports the sender to vxo</i></p>
-              </div>
-              <div id="code-teleport">
-          <pre class="language-markup">
-command /tp [&lt;player&gt;] [&lt;player&gt;]:
-  permission: proton.tp
-  description: Teleports to player
-  permission message: {@em} [proton.tp]
-  usage: /tp [player] (player)
-  trigger:
-    if arg 1 is not set:
-      send "&cUsage: /tp [player] (player)"
-    else if arg 1 is set:
-      if arg 2 is not set:
-        if {proton.teleporting::%sender%} is true:
-          send "{@a} &cPlayer is already being teleported"
-          stop
-        else:
-          set {proton.teleporting::%sender%} to true
-          set {proton.lastLoc::%sender%} to sender's location
-          teleport sender to arg-1
-          send "{@p} Teleported to {@h}%arg-1%{@t}." to sender
-          wait 1 second
-          delete {proton.teleporting::%sender%}
-      else:
-        if {proton.teleporting::%arg-1%} is true:
-          send "&c&oPlayer is already being teleported"
-          stop
-        else:
-          set {proton.teleporting::%arg-1%} to true
-          set {proton.lastLoc::%arg-1%} to arg-1's location
-          teleport arg-1 to arg-2
-          send "{@p} Teleported {@h}%arg-1%{@t} to {@t}%arg-2%{@t}" to sender
-          send "{@p} Teleported to {@h}%arg-2%{@t}." to arg-1
-          wait 1 second
-          delete {proton.teleporting::%arg-1%}
-              </pre>
-              </div>
-            </div>
-          </div>
-        <!-- TPHERE -->
-        <div id="teleport-here" class="card grey lighten-4">
-            <div class="card-content">
-              <span class="card-title"><b>Teleport Here</b> <a class="material-icons right tooltipped" data-position="bottom" data-delay="250" data-tooltip="Click to goto quicklink" href="http://ion.vexio.us/docs/#teleport-here">link</a></span>
-              <p><b>Description</b>: Teleports a player to the sender</p>
-              <p><b>Permission</b>: <font color="#49b6ff">proton.tphere</font></p>
-            </div>
-            <div class="card-tabs grey lighten-4">
-              <ul class="tabs tabs-fixed-width grey lighten-3">
-                <li class="tab"><a class="active green-text darken-1" href="#usage-teleport-here">Usage</a></li>
-                <li class="tab"><a class="green-text darken-1" href="#example-teleport-here">Example</a></li>
-                <li class="tab"><a class="green-text darken-1" href="#code-teleport-here">Code</a></li>
-                <div class="indicator green darken-1" style="right: 661px; left: 0px;"></div>
-              </ul>
-            </div>
-            <div class="card-content grey lighten-5">
-              <div id="usage-teleport-here">
-                <p><b>Usage</b>: <code class="language-markup">/tphere [player]</code>
-                <p><b>Aliases</b>: /s
-              </div>
-              <div id="example-teleport-here">
-                <p><b>Example 1</b>: /tphere vxo <i>- Teleports vxo to the sender</i></p>
-                <p><b>Example 2</b>: /s vxo <i>- Teleports vxo to the sender</i></p>
-              </div>
-              <div id="code-teleport-here">
-          <pre class="language-markup">
-command /tphere [&lt;player&gt;]:
-  permission: proton.tphere
-  description: Teleports a player to sender
-  permission message: {@em} [proton.tphere]
-  usage: /tphere [player]
-  aliases: /s
-  trigger:
-    if arg 1 is not set:
-      send "&cUsage: /tphere [player]"
-    else:
-      make player execute command "/tp %arg 1% %sender%"
-      </pre>
-              </div>
-            </div>
-          </div>
-        <!-- TPALL -->
-        <div id="teleport-all" class="card grey lighten-4">
-            <div class="card-content">
-              <span class="card-title"><b>Teleport All</b> <a class="material-icons right tooltipped" data-position="bottom" data-delay="250" data-tooltip="Click to goto quicklink" href="http://ion.vexio.us/docs/#teleport-all">link</a></span>
-              <p><b>Description</b>: Teleports all players to the sender</p>
-              <p><b>Permission</b>: <font color="#49b6ff">proton.tpall</font></p>
-            </div>
-            <div class="card-tabs grey lighten-4">
-              <ul class="tabs tabs-fixed-width grey lighten-3">
-                <li class="tab"><a class="active green-text darken-1" href="#usage-teleport-all">Usage</a></li>
-                <li class="tab"><a class="green-text darken-1" href="#example-teleport-all">Example</a></li>
-                <li class="tab"><a class="green-text darken-1" href="#code-teleport-all">Code</a></li>
-                <div class="indicator green darken-1" style="right: 661px; left: 0px;"></div>
-              </ul>
-            </div>
-            <div class="card-content grey lighten-5">
-              <div id="usage-teleport-all">
-                <p><b>Usage</b>: <code class="language-markup">/tpall</code>
-                <p><b>Aliases</b>: None
-              </div>
-              <div id="example-teleport-all">
-                <p><b>Example 1</b>: /tpall <i>- Teleports all players to the sender</i></p>
-              </div>
-              <div id="code-teleport-all">
-          <pre class="language-markup">
-command /tpall:
-  permission: proton.tpall
-  description: Teleports all players to sender
-  permission message: {@em}
-  usage: /tpall
-  trigger:
-    set {_loc} to sender's location
-    set {_count} to 0
-    set {_countTotal} to 0
-    set {_total} to number of all players
-    loop all players:
-      teleport loop-player to sender's location
-      add 1 to {_count}
-      add 1 to {_countTotal}
-      if {_count} = 20:
-        set {_count} to 0
-        send "{@p} Sent %{_countTotal}% people. Next group in {@h}3s{@t}. &8[&e%{_countTotal}%&7/&e%{_total}%&8]"
-        wait 3 seconds
-    delete {_loc}
-    send "{@p} Teleported all players to your location"
-    broadcast "{@p} Teleported to {@h}%sender%{@t}."
-                </pre>
-                <p><a href="http://bryce.hoffho.us/pastes/ion/teleport-all.txt"class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">content_copy</i></a></p>
-              </div>
-            </div>
-          </div>
-        <!-- TPCOORDS -->
-        <div id="teleport-coords" class="card grey lighten-4">
-            <div class="card-content">
-              <span class="card-title"><b>Teleport to Coordinates</b> <a class="material-icons right tooltipped" data-position="bottom" data-delay="250" data-tooltip="Click to goto quicklink" href="http://ion.vexio.us/docs/#teleport-coords">link</a></span>
-              <p><b>Description</b>: Teleports to specified coordinates</p>
-              <p><b>Permission</b>: <font color="#49b6ff">proton.tpcoords</font></p>
-            </div>
-            <div class="card-tabs grey lighten-4">
-              <ul class="tabs tabs-fixed-width grey lighten-3">
-                <li class="tab"><a class="active green-text darken-1" href="#usage-teleport-coords">Usage</a></li>
-                <li class="tab"><a class="green-text darken-1" href="#example-teleport-coords">Example</a></li>
-                <li class="tab"><a class="green-text darken-1" href="#code-teleport-coords">Code</a></li>
-                <div class="indicator green darken-1" style="right: 661px; left: 0px;"></div>
-              </ul>
-            </div>
-            <div class="card-content grey lighten-5">
-              <div id="usage-teleport-coords">
-                <p><b>Usage</b>: <code class="language-markup">/tpcoords [x] [y] [z]</code>
-                <p><b>Aliases</b>: /tppos
-              </div>
-              <div id="example-teleport-coords">
-                <p><b>Example 1</b>: /tpcoords 100 63 -125 <i>- Teleports the sender to X=100, Y=63, Z=-125</i></p>
-              </div>
-              <div id="code-teleport-coords">
-          <pre class="language-markup">
-command /tpcoords [&lt;integer&gt;] [&lt;integer&gt;] [&lt;integer&gt;]:
-  permission: proton.tpcoords
-  aliases: /tppos
-  permission message: {@em} [proton.tpcoords]
-  usage: /tpcoords [x] [y] [z]
-  trigger:
-    if arg 1 is not set:
-      send "&cUsage: /tpcoords [x] [y] [z]"
-    else if arg 1 is set:
-      if arg 2 is set:
-        if arg 3 is set:
-          if {proton.teleporting::%arg-1%} is true:
-            send "{@a} &cPlayer is already being teleported"
-            stop
-          else:
-            set {_x} to arg-1
-            set {_z} to arg-3
-            add 0.5 to {_x}
-            add 0.5 to {_z}
-            set {proton.teleporting::%arg-1%} to true
-            set {proton.lastLoc::%sender%} to sender's location
-            set {_world} to sender's world
-            set {_loc} to location({_x}, arg-2, {_z}, {_world})
-            teleport sender to {_loc}
-            send "{@p} Teleported to {@h}%{_x}%, %arg-2%, %{_z}%{@t}."
-            wait 1 second
-            delete {proton.teleporting::%arg-1%}
-        else:
-          send "{@a} Invalid Argument."
-          send "&cUsage: /tpcoords [x] [y] [z]"
-      else:
-        send "{@a} Invalid Argument."
-        send "&cUsage: /tpcoords [x] [y] [z]"
-      </pre>
-              </div>
-            </div>
-          </div>
-        <!-- SETHOME -->
-        <div id="sethome" class="card grey lighten-4">
-            <div class="card-content">
-              <span class="card-title"><b>Sethome</b> <a class="material-icons right tooltipped" data-position="bottom" data-delay="250" data-tooltip="Click to goto quicklink" href="http://ion.vexio.us/docs/#sethome">link</a></span>
-              <p><b>Description</b>: Sets a home location to the sender's location</p>
-              <p><b>Permission</b>: <font color="#49b6ff">proton.sethome</font></p>
-            </div>
-            <div class="card-tabs grey lighten-4">
-              <ul class="tabs tabs-fixed-width grey lighten-3">
-                <li class="tab"><a class="active green-text darken-1" href="#usage-sethome">Usage</a></li>
-                <li class="tab"><a class="green-text darken-1" href="#example-sethome">Example</a></li>
-                <li class="tab"><a class="green-text darken-1" href="#code-sethome">Code</a></li>
-                <div class="indicator green darken-1" style="right: 661px; left: 0px;"></div>
-              </ul>
-            </div>
-            <div class="card-content grey lighten-5">
-              <div id="usage-sethome">
-                <p><b>Usage</b>: <code class="language-markup">/sethome</code>
-                <p><b>Aliases</b>: None
-              </div>
-              <div id="example-sethome">
-                <p><b>Example 1</b>: /sethome <i>- Sets the sender's home location to where the sender is standing</i></p>
-              </div>
-              <div id="code-sethome">
-          <pre class="language-markup">
-command /sethome:
-  permission: proton.sethome
-  permission message: {@em} [proton.sethome]
-  usage: /sethome
-  trigger:
-    set {proton.home::%sender's uuid%} to sender's location
-    set {_x} to sender's x-coordinate
-    set {_y} to sender's y-coordinate
-    set {_z} to sender's z-coordinate
-    send "{@p} Home set at {@h}%{_x}%, %{_y}%, %{_z}%{@t}."
-      </pre>
-              </div>
-            </div>
-          </div>
-        <!-- HOME -->
-        <div id="home" class="card grey lighten-4">
-            <div class="card-content">
-              <span class="card-title"><b>Home</b> <a class="material-icons right tooltipped" data-position="bottom" data-delay="250" data-tooltip="Click to goto quicklink" href="http://ion.vexio.us/docs/#home">link</a></span>
-              <p><b>Description</b>: Teleports the sender to their home location</p>
-              <p><b>Permission</b>: <font color="#49b6ff">proton.home</font></p>
-            </div>
-            <div class="card-tabs grey lighten-4">
-              <ul class="tabs tabs-fixed-width grey lighten-3">
-                <li class="tab"><a class="active green-text darken-1" href="#usage-home">Usage</a></li>
-                <li class="tab"><a class="green-text darken-1" href="#example-home">Example</a></li>
-                <li class="tab"><a class="green-text darken-1" href="#code-home">Code</a></li>
-                <div class="indicator green darken-1" style="right: 661px; left: 0px;"></div>
-              </ul>
-            </div>
-            <div class="card-content grey lighten-5">
-              <div id="usage-home">
-                <p><b>Usage</b>: <code class="language-markup">/home</code>
-                <p><b>Aliases</b>: None
-              </div>
-              <div id="example-home">
-                <p><b>Example 1</b>: /home <i>- Teleports the sender to their home</i></p>
-              </div>
-              <div id="code-home">
-    <pre class="language-markup">
-command /home:
-  permission: proton.home
-  permission message: {@em} [proton.home]
-  usage: /home
-  trigger:
-    if {proton.home::%sender's uuid%} is set:
-      if {proton.teleporting::%sender%} is true:
-        send "{@a} &cPlayer is already being teleported"
-        stop
-      else:
-        set {proton.teleporting::%sender%} to true
-        set {proton.lastLoc::%sender%} to sender's location
-        teleport sender to {proton.home::%sender's uuid%}
-        send "{@p} Teleported to your home location."
-        wait 1 second
-        delete {proton.teleporting::%sender%}
-    else:
-      send "{@a} &cYou do not have a home set."
-      send "&cUsage: /sethome"
-    </pre>
-              </div>
-            </div>
-          </div>
-        <!-- SETSPAWN -->
-        <div id="setspawn" class="card grey lighten-4">
-            <div class="card-content">
-              <span class="card-title"><b>Setspawn</b> <a class="material-icons right tooltipped" data-position="bottom" data-delay="250" data-tooltip="Click to goto quicklink" href="http://ion.vexio.us/docs/#setspawn">link</a></span>
-              <p><b>Description</b>: Sets the server's spawn location to the sender's location</p>
-              <p><b>Permission</b>: <font color="#49b6ff">proton.setspawn</font></p>
-            </div>
-            <div class="card-tabs grey lighten-4">
-              <ul class="tabs tabs-fixed-width grey lighten-3">
-                <li class="tab"><a class="active green-text darken-1" href="#usage-setspawn">Usage</a></li>
-                <li class="tab"><a class="green-text darken-1" href="#example-setspawn">Example</a></li>
-                <li class="tab"><a class="green-text darken-1" href="#code-setspawn">Code</a></li>
-                <div class="indicator green darken-1" style="right: 661px; left: 0px;"></div>
-              </ul>
-            </div>
-            <div class="card-content grey lighten-5">
-              <div id="usage-setspawn">
-                <p><b>Usage</b>: <code class="language-markup">/setspawn</code>
-                <p><b>Aliases</b>: /spawnset
-              </div>
-              <div id="example-setspawn">
-                <p><b>Example 1</b>: /setspawn <i>- Sets the spawn location to the sender's location</i></p>
-              </div>
-              <div id="code-setspawn">
-    <pre class="language-markup">
-command /setspawn:
-  permission: proton.setspawn
-  permission message: {@em} [proton.setspawn]
-  usage: /setspawn
-  trigger:
-    set {proton.spawn} to sender's location
-    set {_x} to sender's x-coordinate
-    set {_y} to sender's y-coordinate
-    set {_z} to sender's z-coordinate
-    send "{@p} Spawn location set to {@h}%{_x}%, %{_y}%, %{_z}%{@t}."
-                </pre>
-              </div>
-            </div>
-          </div>
-        <!-- SETSPAWN -->
-        <div id="spawn" class="card grey lighten-4">
-            <div class="card-content">
-              <span class="card-title"><b>Spawn</b> <a class="material-icons right tooltipped" data-position="bottom" data-delay="250" data-tooltip="Click to goto quicklink" href="http://ion.vexio.us/docs/#spawn">link</a></span>
-              <p><b>Description</b>: Teleports the sender or player to the set spawn</p>
-              <p><b>Permission</b>: <font color="#49b6ff">proton.spawn, proton.spawn.other</font></p>
-            </div>
-            <div class="card-tabs grey lighten-4">
-              <ul class="tabs tabs-fixed-width grey lighten-3">
-                <li class="tab"><a class="active green-text darken-1" href="#usage-spawn">Usage</a></li>
-                <li class="tab"><a class="green-text darken-1" href="#example-spawn">Example</a></li>
-                <li class="tab"><a class="green-text darken-1" href="#code-spawn">Code</a></li>
-                <div class="indicator green darken-1" style="right: 661px; left: 0px;"></div>
-              </ul>
-            </div>
-            <div class="card-content grey lighten-5">
-              <div id="usage-spawn">
-                <p><b>Usage</b>: <code class="language-markup">/spawn (player)</code>
-                <p><b>Aliases</b>: None
-              </div>
-              <div id="example-spawn">
-                <p><b>Example 1</b>: /spawn <i>- Teleports the sender to the spawn location</i></p>
-                <p><b>Example 2</b>: /spawn vxo <i>- Teleports vxo to the spawn location</i></p>
-              </div>
-              <div id="code-spawn">
-    <pre class="language-markup">
-command /spawn [&lt;player="%player%"&gt;]:
-  permission: proton.spawn
-  permission message: {@em} [proton.setwarp]
-  usage: /spawn (player)
-  trigger:
-    if {proton.spawn} is set:
-      if {proton.teleporting::%arg-1%} is true:
-        send "{@a} &c&oPlayer is already being teleported"
-        stop
-      else:
-        set {proton.teleporting::%arg-1%} to true
-        set {proton.lastLoc::%arg-1%} to arg-1's location
-        teleport arg-1 to {proton.spawn}
-        if arg 1 isn't sender:
-          send "{@p} Teleported {@h}%arg-1%{@t} to spawn." to sender
-        send "{@p} Teleported to spawn." to arg-1
-        wait 1 second
-        delete {proton.teleporting::%arg-1%}
-    else:
-      send "{@a} Spawn is not set."
-      if sender has permission "proton.setspawn":
-        send "&cUsage: /setspawn"
-                </pre>
-              </div>
-            </div>
-          </div>
-        <!-- end of documentation -->
-      </div>
+      <!--   TABLE   -->
+      <div class="center">
+      <table class="striped z-depth-1">
+        <thead>
+          <tr>
+              <th>Version</th>
+              <th>Size</th>
+              <th>Download</th>
+              <th>Date</th>
+          </tr>
+        </thead>
 
+        <tbody>
+          <tr>
+            <td>ION-1.4.6a</td>
+            <td>287 KB</td>
+            <td><a class="material-icons left" href="http://ion.vexio.us/downloads/ION-1.4.6a.zip" download>file_download</a>v1.4.6a</td>
+            <td>June 4th, 2017</td>
+          </tr>
+          <tr>
+            <td>ION-1.4.6</td>
+            <td>287 KB</td>
+            <td><a class="material-icons left" href="http://ion.vexio.us/downloads/ION-1.4.6.zip" download>file_download</a>v1.4.6</td>
+            <td>May 27th, 2017</td>
+          </tr>
+          <tr>
+            <td>ION-1.4.5</td>
+            <td>285 KB</td>
+            <td><a class="material-icons left" href="http://ion.vexio.us/downloads/ION-1.4.5.zip" download>file_download</a>v1.4.5</td>
+            <td>April 30th, 2017</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     </div>
     <br><br>
 
@@ -619,19 +111,6 @@ command /spawn [&lt;player="%player%"&gt;]:
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="../js/materialize.js"></script>
   <script src="../js/init.js"></script>
-  <script src="../js/prism.js"></script>
-  <script src="../js/clipboard.js"></script>
-  <script src="../js/clipboard.min.js"></script>
-  <script>
-    var btn = document.getElementById('clipbtn');
-    var clipboard = new Clipboard(btn);
-    clipboard.on('success', function(e) {
-        console.log(e);
-    });
-    clipboard.on('error', function(e) {
-        console.log(e);
-    });
-    </script>
-  
+
   </body>
 </html>

@@ -45,36 +45,110 @@
     <div class="section">
 
       <!--   TABLE   -->
-      <div class="center">
+      <div id="proton" class="center">
       <h2 class="header center orange-text darken-1"><font family="Product Sans-Regular">Proton</font></h2>
-      <table class="striped z-depth-1">
+      <table class="bordered striped z-depth-1">
         <thead>
           <tr>
-              <th>Version</th>
-              <th>Size</th>
-              <th>Download</th>
-              <th>Date</th>
+              <th>Command</th>
+              <th>Aliases</th>
+              <th>Usage</th>
+              <th>Permission</th>
+              <th>Description</th>
           </tr>
         </thead>
 
         <tbody>
           <tr>
-            <td>ION-1.4.6a</td>
-            <td>287 KB</td>
-            <td><a class="material-icons left" href="http://ion.vexio.us/downloads/ION-1.4.6a.zip" download>file_download</a>v1.4.6a</td>
-            <td>June 4th, 2017</td>
+            <td>/proton [argument]</td>
+            <td>None</td>
+            <td>/proton (help|update|reload)</td>
+            <td>None</td>
+            <td><i>Base command for Proton</i></td>
           </tr>
           <tr>
-            <td>ION-1.4.6</td>
-            <td>287 KB</td>
-            <td><a class="material-icons left" href="http://ion.vexio.us/downloads/ION-1.4.6.zip" download>file_download</a>v1.4.6</td>
-            <td>May 27th, 2017</td>
+            <td>/gamemode [argument] (player)</td>
+            <td>/gm, /gmc, /gms, /gma, /gmsp</td>
+            <td>/gamemode [creative|survival|adventure|spectator] (player)</td>
+            <td>proton.gamemode</td>
+            <td><i>Changes gamemode</i></td>
           </tr>
           <tr>
-            <td>ION-1.4.5</td>
-            <td>285 KB</td>
-            <td><a class="material-icons left" href="http://ion.vexio.us/downloads/ION-1.4.5.zip" download>file_download</a>v1.4.5</td>
-            <td>April 30th, 2017</td>
+            <td>/fly (player)</td>
+            <td>None</td>
+            <td>/fly (player)</td>
+            <td>proton.fly</td>
+            <td><i>Toggles flight mode</i></td>
+          </tr>
+          <tr>
+            <td>/tp [player] (player)</td>
+            <td>None</td>
+            <td>/tp [player] (player)</td>
+            <td>proton.tp</td>
+            <td><i>Teleports to a player (or a player to another)</i></td>
+          </tr>
+          <tr>
+            <td>/tphere [player]</td>
+            <td>/s</td>
+            <td>/tphere [player]</td>
+            <td>proton.tphere</td>
+            <td><i>Teleports a player to the sender</i></td>
+          </tr>
+          <tr>
+            <td>/tpall</td>
+            <td>None</td>
+            <td>/tpall</td>
+            <td>proton.tpall</td>
+            <td><i>Teleports all players to the sender</i></td>
+          </tr>
+          <tr>
+            <td>/tpcoords [integer] [integer] [integer]</td>
+            <td>/tppos</td>
+            <td>/tpcoords [x] [y] [z]</td>
+            <td>proton.tpcoords</td>
+            <td><i>Teleports the sender to the specified coordinates</i></td>
+          </tr>
+          <tr>
+            <td>/sethome</td>
+            <td>None</td>
+            <td>/sethome</td>
+            <td>proton.sethome</td>
+            <td><i>Sets the sender's home to the sender's location</i></td>
+          </tr>
+          <tr>
+            <td>/home</td>
+            <td>None</td>
+            <td>/home</td>
+            <td>proton.home</td>
+            <td><i>Teleports to the sender's set home location</i></td>
+          </tr>
+          <tr>
+            <td>/warp [string] (player)</td>
+            <td>None</td>
+            <td>/warp [warpName] (player)</td>
+            <td>proton.warp, proton.warp.other & proton.warp.<warpName></td>
+            <td><i>Teleports the sender to a set warp's location</i></td>
+          </tr>
+          <tr>
+            <td>/setwarp [string]</td>
+            <td>/warpset</td>
+            <td>/setwarp [warpName]</td>
+            <td>proton.setwarp</td>
+            <td><i>Sets a warp location to the sender's location</i></td>
+          </tr>
+          <tr>
+            <td>/delwarp [string]</td>
+            <td>/warpdel</td>
+            <td>/delwarp [warpName]</td>
+            <td>proton.delwarp</td>
+            <td><i>Deletes an already set warp</i></td>
+          </tr>
+          <tr>
+            <td>/warps</td>
+            <td>/warplist</td>
+            <td>/warps</td>
+            <td>proton.warps</td>
+            <td><i>Views all currently set warps</i></td>
           </tr>
         </tbody>
       </table>
